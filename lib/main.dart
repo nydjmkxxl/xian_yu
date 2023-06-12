@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:scoped_model/scoped_model.dart'; // scopedmodel
 import 'package:xianyu/pages/second.dart';
 import 'package:xianyu/utils/counter.dart';
-import 'package:xianyu/utils/http.dart';
+import 'package:xianyu/utils/request/http.dart';
 // import 'package:xianyu/pages/second.dart';
 // import 'package:xianyu/store/reducers.dart';
 // import 'package:xianyu/store/state.dart';
@@ -86,10 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                     return ElevatedButton(
                         onPressed: () {
-                          counter.start();
+                          // counter.start();
                           DioHttp()
-                              .client
-                              .get('crm/user/queryUserInfo?userId=179');
+                              // .client
+                              .get('crm/user/queryUserInfo?userId=179')
+                              .then((value) => print(value));
                           // Future.delayed(const Duration(seconds: 10), () {
                           //   counter.clearTime();
                           // });
