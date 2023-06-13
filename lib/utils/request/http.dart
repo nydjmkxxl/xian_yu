@@ -24,11 +24,8 @@ class DioHttp {
         baseUrl: Config.baseUrl,
         connectTimeout: const Duration(seconds: 60),
         receiveTimeout: const Duration(seconds: 60),
-        // headers: {"accessToken": Config.accessToken}
-        );
-    _client.interceptors.addAll([
-      ErrorInterceptor()
-    ]);
+        headers: {"accessToken": Config.accessToken});
+    _client.interceptors.addAll([ErrorInterceptor()]);
   }
 
   void init(
@@ -46,7 +43,6 @@ class DioHttp {
   }
 
   /// GET
-  ///
   Future<Response<dynamic>> get(String path,
       [Map<String, dynamic>? params, Options? options]) async {
     return await _client.get(path, queryParameters: params, options: options);
@@ -101,8 +97,8 @@ class DioHttp {
   }
 
   /// 上传 FormData
-  Future<Response<dynamic>> postFormData(String path,
-      DioFile dioFile, void Function(int, int) onSendProgress) async {
+  Future<Response<dynamic>> postFormData(String path, DioFile dioFile,
+      void Function(int, int) onSendProgress) async {
     return await _client.post(path,
         data: await prepareFormData(dioFile.path, dioFile.filename),
         onSendProgress: onSendProgress ?? showProgress);

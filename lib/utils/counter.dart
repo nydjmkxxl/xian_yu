@@ -12,8 +12,6 @@ class Counter {
   int get count => _count;
 
   void start() {
-    if (_count > 0) return;
-
     _count = time;
     _countStreamController.sink.add(_count);
     Timer.periodic(Duration(seconds: duration), (timer) {

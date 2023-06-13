@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:xianyu/entity_class/user_info.dart';
 // import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:redux/redux.dart';
 // import 'package:scoped_model/scoped_model.dart'; // scopedmodel
@@ -16,8 +19,9 @@ import 'bloc/todo/todo_bloc.dart';
 import 'entity_class/get_it.dart';
 // import 'model/count_model.dart'; // scopedmodel
 
-void main() {
-  getItSetup();
+void main() async {
+  getItSetup(); // 单例工具
+  GetStorage.init(); // 本地存储初始化
   runApp(const MyApp());
 }
 
@@ -31,9 +35,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<CountBloc>(create: (context) => CountBloc()),
         BlocProvider<TodoBloc>(create: (context) => TodoBloc())
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'flutter',
-        home: MyHomePage(title: 'app title'),
+        theme: ThemeData(brightness: Brightness.light),
+        home: const MyHomePage(title: 'app title'),
       ),
     );
   }
@@ -66,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String msg = '获取验证码';
+    String msg = '';
 
     return Scaffold(
         appBar: AppBar(title: const Text('flutter')),
@@ -79,18 +84,41 @@ class _MyHomePageState extends State<MyHomePage> {
               StreamBuilder<int>(
                   stream: counter.stream,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData && counter.count > 0) {
-                      msg = '重新发送 ${snapshot.data}s';
+                    if (snapshot.hasData) {
+                      if (counter.count > 0) {
+                        msg = '重新发送 ${snapshot.data}s';
+                      } else {
+                        msg = '重新发送';
+                      }
                     } else {
-                      msg = '重新发送';
+                      msg = '获取验证码';
                     }
                     return ElevatedButton(
-                        onPressed: () {
-                          // counter.start();
-                          DioHttp()
-                              // .client
-                              .get('crm/user/queryUserInfo?userId=179')
-                              .then((value) => print(value));
+                        onPressed: () async {
+                          // 正在获取验证码时再次点击无效
+                          if (counter.count > 0) {
+                            print('正在获取验证码时再次点击无效');
+                            return;
+                          }
+                          counter.start();
+                          var res = await DioHttp()
+                              .get('crm/user/queryUserInfo', {'userId': 179});
+
+                          Map<String, dynamic>? data = res.data;
+                          // data! 只有 data非 null 时，才执行 fromJson
+                          UserInfo userInfo = UserInfo.fromJson(data!);
+
+                          if (res.statusCode != 200) {
+                            /// 发送失败
+                            Fluttertoast.showToast(
+                                msg: userInfo.msg,
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16);
+                          } else {}
                           // Future.delayed(const Duration(seconds: 10), () {
                           //   counter.clearTime();
                           // });
