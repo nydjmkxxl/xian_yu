@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:xianyu/entity_class/user_info.dart';
+import 'package:xianyu/entity_class/serialize/user_info.dart';
 // import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:redux/redux.dart';
 // import 'package:scoped_model/scoped_model.dart'; // scopedmodel
 import 'package:xianyu/pages/second.dart';
 import 'package:xianyu/utils/counter.dart';
 import 'package:xianyu/utils/request/http.dart';
+import 'package:xianyu/utils/storage.dart';
 // import 'package:xianyu/pages/second.dart';
 // import 'package:xianyu/store/reducers.dart';
 // import 'package:xianyu/store/state.dart';
@@ -17,6 +18,7 @@ import 'package:xianyu/utils/request/http.dart';
 import 'bloc/count/count_bloc.dart';
 import 'bloc/todo/todo_bloc.dart';
 import 'entity_class/get_it.dart';
+import 'entity_class/serialize/http.response.dart';
 // import 'model/count_model.dart'; // scopedmodel
 
 void main() async {
@@ -104,24 +106,28 @@ class _MyHomePageState extends State<MyHomePage> {
                           var res = await DioHttp()
                               .get('crm/user/queryUserInfo', {'userId': 179});
 
-                          Map<String, dynamic>? data = res.data;
-                          // data! 只有 data非 null 时，才执行 fromJson
-                          UserInfo userInfo = UserInfo.fromJson(data!);
-
+                          Map<String, dynamic> data = res.data;
+                          HttpResponse httpResponse =
+                              HttpResponse.fromJson(data);
                           if (res.statusCode != 200) {
-                            /// 发送失败
-                            Fluttertoast.showToast(
-                                msg: userInfo.msg,
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16);
-                          } else {}
-                          // Future.delayed(const Duration(seconds: 10), () {
-                          //   counter.clearTime();
-                          // });
+                            counter.clearTime();
+                          } else {
+                            UserInfo userInfo = UserInfo.fromJson(data['data']);
+
+                            /// 存储用户数据
+                            Storage().setUserInfo(userInfo);
+                            httpResponse.data = userInfo;
+                            if (httpResponse.msg!.isNotEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: httpResponse.msg!,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16);
+                            }
+                          }
                         },
                         style: counter.count == 0 ? btnActive : btnInActive,
                         child: Text(msg));

@@ -7,18 +7,6 @@ part of 'user_info.dart';
 // **************************************************************************
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
-      json['msg'] as String,
-      json['code'] as int,
-      Data.fromJson(json['data'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
-      'msg': instance.msg,
-      'code': instance.code,
-      'data': instance.data,
-    };
-
-Data _$DataFromJson(Map<String, dynamic> json) => Data(
       json['userId'] as int,
       json['deptId'] as int,
       json['loginName'] as String,
@@ -80,10 +68,9 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       json['message'] as int,
       json['headimg'] as String,
       json['expire'] as int,
-      Record.fromJson(json['record'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'userId': instance.userId,
       'deptId': instance.deptId,
       'loginName': instance.loginName,
@@ -145,13 +132,4 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'message': instance.message,
       'headimg': instance.headimg,
       'expire': instance.expire,
-      'record': instance.record,
-    };
-
-Record _$RecordFromJson(Map<String, dynamic> json) => Record(
-      json['userId'] as int,
-    );
-
-Map<String, dynamic> _$RecordToJson(Record instance) => <String, dynamic>{
-      'userId': instance.userId,
     };

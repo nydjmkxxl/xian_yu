@@ -4,29 +4,6 @@ part 'user_info.g.dart';
 
 @JsonSerializable()
 class UserInfo extends Object {
-  @JsonKey(name: 'msg')
-  String msg;
-
-  @JsonKey(name: 'code')
-  int code;
-
-  @JsonKey(name: 'data')
-  Data data;
-
-  UserInfo(
-    this.msg,
-    this.code,
-    this.data,
-  );
-
-  factory UserInfo.fromJson(Map<String, dynamic> srcJson) =>
-      _$UserInfoFromJson(srcJson);
-
-  Map<String, dynamic> toJson() => _$UserInfoToJson(this);
-}
-
-@JsonSerializable()
-class Data extends Object {
   @JsonKey(name: 'userId')
   int userId;
 
@@ -210,10 +187,7 @@ class Data extends Object {
   @JsonKey(name: 'expire')
   int expire;
 
-  @JsonKey(name: 'record')
-  Record record;
-
-  Data(
+  UserInfo(
     this.userId,
     this.deptId,
     this.loginName,
@@ -275,26 +249,10 @@ class Data extends Object {
     this.message,
     this.headimg,
     this.expire,
-    this.record,
   );
 
-  factory Data.fromJson(Map<String, dynamic> srcJson) =>
-      _$DataFromJson(srcJson);
+  factory UserInfo.fromJson(Map<String, dynamic> srcJson) =>
+      _$UserInfoFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$DataToJson(this);
-}
-
-@JsonSerializable()
-class Record extends Object {
-  @JsonKey(name: 'userId')
-  int userId;
-
-  Record(
-    this.userId,
-  );
-
-  factory Record.fromJson(Map<String, dynamic> srcJson) =>
-      _$RecordFromJson(srcJson);
-
-  Map<String, dynamic> toJson() => _$RecordToJson(this);
+  Map<String, dynamic> toJson() => _$UserInfoToJson(this);
 }
