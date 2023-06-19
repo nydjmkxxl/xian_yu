@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:xianyu/model/count_model.dart';
+// import 'package:scoped_model/scoped_model.dart';
+// import 'package:xianyu/model/count_model.dart';
 
 import '../bloc/count/count_bloc.dart';
-import '../entity_class/get_it.dart';
+// import '../entity_class/get_it.dart';
 // import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:xianyu/store/state.dart';
 // import 'package:xianyu/widgets/view_model.dart';

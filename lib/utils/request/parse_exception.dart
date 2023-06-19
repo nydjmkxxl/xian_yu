@@ -1,11 +1,16 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:xianyu/utils/request/http_exception.dart';
 
 HttpException parseException(DioException err) {
-  print('err,type');
-  print(err.type);
+  if (kDebugMode) {
+    print('err,type');
+  }
+  if (kDebugMode) {
+    print(err.type);
+  }
   switch (err.type) {
     case DioExceptionType.connectionTimeout:
     case DioExceptionType.receiveTimeout:
@@ -15,7 +20,9 @@ HttpException parseException(DioException err) {
     case DioExceptionType.cancel:
       return CancelRequestException(message: err.message);
     case DioExceptionType.badResponse:
-      print('in');
+      if (kDebugMode) {
+        print('in');
+      }
       try {
         int? errCode = err.response?.statusCode;
         switch (errCode) {
