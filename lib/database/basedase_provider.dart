@@ -10,7 +10,7 @@ class DatabaseProvider {
   ///  databaseProvider 代表 该类的
   static final DatabaseProvider db = DatabaseProvider();
 
-  late final Database? _database;
+  Database? _database;
 
   DatabaseProvider();
 
@@ -30,6 +30,9 @@ class DatabaseProvider {
     /// 根据不同场景，public user
     String path = '';
     String databasePath = await getDatabasesPath();
+    if (kDebugMode) {
+      print(databasePath);
+    }
     UserInfo? userInfo = Storage().getUserInfo();
     if (userInfo != null) {
       path =

@@ -20,10 +20,11 @@ class ContentProvider extends DatabaseProvider {
         batch.insert('posts', element.toJson());
       }
       var res = await batch.commit();
+      print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 成功');
       return res;
     } catch (e) {
       if (kDebugMode) {
-        print('add post $e');
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 失败 $e');
       }
     }
   }

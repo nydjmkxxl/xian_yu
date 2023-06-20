@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_info.g.dart';
@@ -47,6 +49,7 @@ class UserInfo extends Object {
   String loginIp;
 
   @JsonKey(name: 'loginDate')
+  // List<String> loginDate; 改
   List<int> loginDate;
 
   @JsonKey(name: 'createBy')
