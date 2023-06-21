@@ -36,10 +36,12 @@ class DatabaseProvider {
     UserInfo? userInfo = Storage().getUserInfo();
     if (userInfo != null) {
       path =
-          join(databasePath, '${userInfo.userId}', Config.privateDatabaseName);
+          // join(databasePath, '${userInfo.userId}', Config.privateDatabaseName);
+          join('./', '${userInfo.userId}', Config.privateDatabaseName);
       await makeDir(path);
     } else {
-      path = join(databasePath, Config.publicDatabaseName);
+      // path = join(databasePath, Config.publicDatabaseName);
+      path = join('./', Config.publicDatabaseName);
     }
 
     if (kDebugMode) {
