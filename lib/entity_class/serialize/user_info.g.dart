@@ -6,35 +6,23 @@ part of 'user_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-decodeList<T>(data) {
-  return data is List
-      ? data.cast<T>()
-      : json.decode(data).map<T>((e) => e as T).toList();
-}
-
-decodeMap(data) {
-  return data is Map
-      ? data as Map<String, dynamic>
-      : json.decode(data) as Map<String, dynamic>;
-}
-
-encodeListOrMap<T>(data) {
-  return data is T ? json.encode(data) : data;
-}
-
 // 转 String
 encode<T>(data) {
   data is T ? json.encode(data) : data;
 }
 
 // 转 List
-decodeList(data) {
-  data is String ? json.decode(data).map((e) => e).toList() : data;
+decodeList<T>(data) {
+  data is List
+      ? data.cast<T>()
+      : json.decode(data).map<T>((e) => e as T).toList();
 }
 
 // 转 Map
 decodeMap(data) {
-  data is String ? json.decode(data).map((e) => e).toList() : data;
+  data is Map
+      ? data as Map<String, dynamic>
+      : json.decode(data) as Map<String, dynamic>;
 }
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> jsonData) => UserInfo(
@@ -52,7 +40,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> jsonData) => UserInfo(
       jsonData['status'] as String,
       jsonData['delFlag'] as String,
       jsonData['loginIp'] as String,
-      json.decode(jsonData['loginDate']) as List<int>,
+      decodeList<int>(jsonData['loginDate']) as List<int>,
       jsonData['createBy'] as String,
       jsonData['createTime'] as String,
       jsonData['updateBy'] as String,
@@ -127,7 +115,7 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> jsonData) => UserInfo(
       jsonData['headimg'] as String,
       jsonData['recentDay'] as String,
       jsonData['expire'] as int,
-      Record.fromJson(json.decode(jsonData['record']) as Map<String, dynamic>),
+      Record.fromJson(decodeMap(jsonData['record']) as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
@@ -145,7 +133,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'status': instance.status,
       'delFlag': instance.delFlag,
       'loginIp': instance.loginIp,
-      'loginDate': instance.loginDate,
+      'loginDate': encode(instance.loginDate),
       'createBy': instance.createBy,
       'createTime': instance.createTime,
       'updateBy': instance.updateBy,
@@ -220,7 +208,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'headimg': instance.headimg,
       'recentDay': instance.recentDay,
       'expire': instance.expire,
-      'record': instance.record,
+      'record': encode(instance.record),
     };
 
 Record _$RecordFromJson(Map<String, dynamic> json) => Record(
