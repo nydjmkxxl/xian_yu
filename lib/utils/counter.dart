@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+
 class Counter {
   final int time;
   final int duration;
@@ -21,7 +23,9 @@ class Counter {
       if (_count == 0) {
         _count = 0;
         timer.cancel();
-        print('自动清除');
+        if (kDebugMode) {
+          print('自动清除');
+        }
       }
     });
   }
@@ -30,6 +34,8 @@ class Counter {
     _count = 0;
     _countStreamController.sink.add(_count);
     timerInstance?.cancel();
-    print('手动清除');
+    if (kDebugMode) {
+      print('手动清除');
+    }
   }
 }

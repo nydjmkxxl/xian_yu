@@ -1,8 +1,20 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:xianyu/config.dart';
 import 'package:xianyu/utils/request/error_interceptor.dart';
+
+// Future getPostList([listQuery? query]) async {
+//   Map<String, dynamic> params = query?.toJson() ?? {};
+//   Response res = await DioHttp.get('/xxx', parmas);
+//   if (res.statusCode == 200) {
+//     HttpResponse httpResponse = HttpResponse.fromJson(res.data);
+//     if (httpResponse.code == 200) {
+//       List<Post> lists = httpResponse.data.map<Post>((e) => Post.fromJson(e)).toList();
+//     }
+//   }
+// }
 
 class DioFile {
   final String path;
@@ -92,13 +104,15 @@ class DioHttp {
 
   void showProgress(received, total) {
     if (total != -1) {
-      print((received / total * 100).toStringAsFixed(0) + '%');
+      if (kDebugMode) {
+        print((received / total * 100).toStringAsFixed(0) + '%');
+      }
     }
   }
 
   /// 上传 FormData
   Future<Response<dynamic>> postFormData(String path, DioFile dioFile,
-      void Function(int, int) onSendProgress) async {
+      void Function(int, int)? onSendProgress) async {
     return await _client.post(path,
         data: await prepareFormData(dioFile.path, dioFile.filename),
         onSendProgress: onSendProgress ?? showProgress);

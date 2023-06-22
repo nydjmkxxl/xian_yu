@@ -1,3 +1,7 @@
+// import 'dart:convert';
+
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_info.g.dart';
@@ -47,7 +51,9 @@ class UserInfo extends Object {
   String loginIp;
 
   @JsonKey(name: 'loginDate')
+  // List<String> loginDate; 改
   List<int> loginDate;
+  // String loginDate;
 
   @JsonKey(name: 'createBy')
   String createBy;
@@ -67,11 +73,26 @@ class UserInfo extends Object {
   @JsonKey(name: 'openId')
   String openId;
 
+  @JsonKey(name: 'city')
+  String city;
+
+  @JsonKey(name: 'country')
+  String country;
+
+  @JsonKey(name: 'province')
+  String province;
+
   @JsonKey(name: 'headimgUrl')
   String headimgUrl;
 
+  @JsonKey(name: 'unionId')
+  String unionId;
+
   @JsonKey(name: 'loginnum')
   int loginnum;
+
+  @JsonKey(name: 'userpost')
+  String userpost;
 
   @JsonKey(name: 'businesscity')
   String businesscity;
@@ -79,11 +100,26 @@ class UserInfo extends Object {
   @JsonKey(name: 'businessprovince')
   String businessprovince;
 
+  @JsonKey(name: 'organize')
+  String organize;
+
   @JsonKey(name: 'isnotcie')
   int isnotcie;
 
   @JsonKey(name: 'subusername')
   String subusername;
+
+  @JsonKey(name: 'deptType')
+  String deptType;
+
+  @JsonKey(name: 'deptTypeName')
+  String deptTypeName;
+
+  @JsonKey(name: 'deptStatus')
+  String deptStatus;
+
+  @JsonKey(name: 'usenum')
+  String usenum;
 
   @JsonKey(name: 'expireDate')
   String expireDate;
@@ -93,6 +129,9 @@ class UserInfo extends Object {
 
   @JsonKey(name: 'aicBalance')
   int aicBalance;
+
+  @JsonKey(name: 'payType')
+  String payType;
 
   @JsonKey(name: 'recommenderName')
   String recommenderName;
@@ -181,11 +220,65 @@ class UserInfo extends Object {
   @JsonKey(name: 'message')
   int message;
 
+  @JsonKey(name: 'submitCount')
+  String submitCount;
+
+  @JsonKey(name: 'ocrErrorCount')
+  String ocrErrorCount;
+
+  @JsonKey(name: 'plateErrorCount')
+  String plateErrorCount;
+
+  @JsonKey(name: 'repeatCount')
+  String repeatCount;
+
+  @JsonKey(name: 'queueCount')
+  String queueCount;
+
+  @JsonKey(name: 'passCount')
+  String passCount;
+
+  @JsonKey(name: 'matchCount')
+  String matchCount;
+
+  @JsonKey(name: 'matchRate')
+  String matchRate;
+
+  @JsonKey(name: 'submitCountYe')
+  String submitCountYe;
+
+  @JsonKey(name: 'ocrErrorCountYe')
+  String ocrErrorCountYe;
+
+  @JsonKey(name: 'plateErrorCountYe')
+  String plateErrorCountYe;
+
+  @JsonKey(name: 'repeatCountYe')
+  String repeatCountYe;
+
+  @JsonKey(name: 'queueCountYe')
+  String queueCountYe;
+
+  @JsonKey(name: 'passCountYe')
+  String passCountYe;
+
+  @JsonKey(name: 'matchCountYe')
+  String matchCountYe;
+
+  @JsonKey(name: 'matchRateYe')
+  String matchRateYe;
+
   @JsonKey(name: 'headimg')
   String headimg;
 
+  @JsonKey(name: 'recentDay')
+  String recentDay;
+
   @JsonKey(name: 'expire')
   int expire;
+
+  @JsonKey(name: 'record')
+  Record record;
 
   UserInfo(
     this.userId,
@@ -209,15 +302,26 @@ class UserInfo extends Object {
     this.updateTime,
     this.remark,
     this.openId,
+    this.city,
+    this.country,
+    this.province,
     this.headimgUrl,
+    this.unionId,
     this.loginnum,
+    this.userpost,
     this.businesscity,
     this.businessprovince,
+    this.organize,
     this.isnotcie,
     this.subusername,
+    this.deptType,
+    this.deptTypeName,
+    this.deptStatus,
+    this.usenum,
     this.expireDate,
     this.aicLicense,
     this.aicBalance,
+    this.payType,
     this.recommenderName,
     this.recommenderPhone,
     this.addeffectTime,
@@ -247,12 +351,121 @@ class UserInfo extends Object {
     this.assistAccount,
     this.analysis,
     this.message,
+    this.submitCount,
+    this.ocrErrorCount,
+    this.plateErrorCount,
+    this.repeatCount,
+    this.queueCount,
+    this.passCount,
+    this.matchCount,
+    this.matchRate,
+    this.submitCountYe,
+    this.ocrErrorCountYe,
+    this.plateErrorCountYe,
+    this.repeatCountYe,
+    this.queueCountYe,
+    this.passCountYe,
+    this.matchCountYe,
+    this.matchRateYe,
     this.headimg,
+    this.recentDay,
     this.expire,
+    this.record,
   );
 
   factory UserInfo.fromJson(Map<String, dynamic> srcJson) =>
       _$UserInfoFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+}
+
+@JsonSerializable()
+class Record extends Object {
+  @JsonKey(name: 'userId')
+  int userId;
+
+  @JsonKey(name: 'submitCount')
+  int submitCount;
+
+  @JsonKey(name: 'ocrErrorCount')
+  String ocrErrorCount;
+
+  @JsonKey(name: 'plateErrorCount')
+  String plateErrorCount;
+
+  @JsonKey(name: 'repeatCount')
+  String repeatCount;
+
+  @JsonKey(name: 'queueCount')
+  String queueCount;
+
+  @JsonKey(name: 'passCount')
+  String passCount;
+
+  @JsonKey(name: 'matchCount')
+  String matchCount;
+
+  @JsonKey(name: 'matchRate')
+  String matchRate;
+
+  @JsonKey(name: 'submitCountYe')
+  String submitCountYe;
+
+  @JsonKey(name: 'ocrErrorCountYe')
+  String ocrErrorCountYe;
+
+  @JsonKey(name: 'plateErrorCountYe')
+  String plateErrorCountYe;
+
+  @JsonKey(name: 'repeatCountYe')
+  String repeatCountYe;
+
+  @JsonKey(name: 'queueCountYe')
+  String queueCountYe;
+
+  @JsonKey(name: 'passCountYe')
+  String passCountYe;
+
+  @JsonKey(name: 'matchCountYe')
+  String matchCountYe;
+
+  @JsonKey(name: 'matchRateYe')
+  String matchRateYe;
+
+  @JsonKey(name: 'recentDay')
+  String recentDay;
+
+  @JsonKey(name: 'createTime')
+  String createTime;
+
+  @JsonKey(name: 'updateTime')
+  String updateTime;
+
+  Record(
+    this.userId,
+    this.submitCount,
+    this.ocrErrorCount,
+    this.plateErrorCount,
+    this.repeatCount,
+    this.queueCount,
+    this.passCount,
+    this.matchCount,
+    this.matchRate,
+    this.submitCountYe,
+    this.ocrErrorCountYe,
+    this.plateErrorCountYe,
+    this.repeatCountYe,
+    this.queueCountYe,
+    this.passCountYe,
+    this.matchCountYe,
+    this.matchRateYe,
+    this.recentDay,
+    this.createTime,
+    this.updateTime,
+  );
+
+  factory Record.fromJson(Map<String, dynamic> srcJson) =>
+      _$RecordFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$RecordToJson(this);
 }

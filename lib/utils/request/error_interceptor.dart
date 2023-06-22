@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:xianyu/utils/request/http_exception.dart';
 import 'package:xianyu/utils/request/parse_exception.dart';
 
@@ -11,7 +12,9 @@ class ErrorInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     HttpException httpException = parseException(err);
-    print('***********************************************错误');
+    if (kDebugMode) {
+      print('***********************************************错误');
+    }
     handler.resolve(Response(
         requestOptions: err.requestOptions,
         statusCode: httpException.code,
