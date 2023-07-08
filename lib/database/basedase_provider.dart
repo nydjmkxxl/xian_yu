@@ -15,10 +15,13 @@ class DatabaseProvider {
   DatabaseProvider();
 
   Future<Database> get databaseProvider async {
+    print('=====================================');
     if (_database == null) {
+      print('>>>>>>>>>>>>>>>>> 打印1');
       _database = await initDatabase();
       return _database as Database;
     }
+    print('>>>>>>>>>>>>>>>>> 打印2');
     return _database as Database;
   }
 
@@ -36,12 +39,10 @@ class DatabaseProvider {
     UserInfo? userInfo = Storage().getUserInfo();
     if (userInfo != null) {
       path =
-          // join(databasePath, '${userInfo.userId}', Config.privateDatabaseName);
-          join('./', '${userInfo.userId}', Config.privateDatabaseName);
+          join(databasePath, '${userInfo.userId}', Config.privateDatabaseName);
       await makeDir(path);
     } else {
-      // path = join(databasePath, Config.publicDatabaseName);
-      path = join('./', Config.publicDatabaseName);
+      path = join(databasePath, Config.publicDatabaseName);
     }
 
     if (kDebugMode) {
@@ -56,9 +57,9 @@ class DatabaseProvider {
       onCreate: (db, version) async {
         /// 当这个表不存在时，创建它
         /// 表 posts 字段 ()
-        /// id TEXT PRIMARY KEY, 主键
+        /// [id] INTEGER PRIMARY KEY, 主键
         await db.execute(''' CREATE TABLE IF NOT EXISTS posts (
-          id TEXT PRIMARY KEY,
+          id INTEGER PRIMARY KEY,
           userId INTEGER,
           deptId INTEGER,
           loginName TEXT,

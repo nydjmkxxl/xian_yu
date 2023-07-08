@@ -8,19 +8,19 @@ part of 'user_info.dart';
 
 // 转 String
 encode<T>(data) {
-  data is T ? json.encode(data) : data;
+  return data is T ? json.encode(data) : data;
 }
 
 // 转 List
 decodeList<T>(data) {
-  data is List
+  return data is List
       ? data.cast<T>()
       : json.decode(data).map<T>((e) => e as T).toList();
 }
 
 // 转 Map
 decodeMap(data) {
-  data is Map
+  return data is Map
       ? data as Map<String, dynamic>
       : json.decode(data) as Map<String, dynamic>;
 }

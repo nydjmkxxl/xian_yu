@@ -234,7 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           };
                           UserInfo userInfo = UserInfo.fromJson(srcJson);
                           var res1 = ContentProvider.db
-                              .addPostBatch([userInfo, userInfo]);
+                              .addPostBatch([userInfo]);
+                          UserInfo u = await ContentProvider.db.getPost('179');
+                          print('用户id ${u.deptId}');
 
                           /// 存储用户数据
                           // Storage().setUserInfo(userInfo);
